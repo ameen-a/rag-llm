@@ -1,0 +1,32 @@
+{
+  "id": 20168038957844,
+  "url": "https://joinvoy.zendesk.com/api/v2/help_center/en-gb/articles/20168038957844.json",
+  "html_url": "https://joinvoy.zendesk.com/hc/en-gb/articles/20168038957844-Why-doesn-t-VOY-mention-prescription-medications-by-name",
+  "author_id": 6784296840212,
+  "comments_disabled": false,
+  "draft": false,
+  "promoted": false,
+  "position": 0,
+  "vote_sum": 0,
+  "vote_count": 0,
+  "section_id": 20198140442388,
+  "created_at": "2023-10-19T15:21:13Z",
+  "updated_at": "2024-10-22T18:53:27Z",
+  "name": "Why doesn\u2019t VOY mention prescription medications by name?",
+  "title": "Why doesn\u2019t VOY mention prescription medications by name?",
+  "source_locale": "en-gb",
+  "locale": "en-gb",
+  "outdated": false,
+  "outdated_locales": [],
+  "edited_at": "2024-10-22T18:53:27Z",
+  "user_segment_id": null,
+  "permission_group_id": 2460252,
+  "content_tag_ids": [
+    "01GVFXVMYVQJHA7JPF273TBAFJ"
+  ],
+  "label_names": [
+    "General Query"
+  ],
+  "body": "<p class=\"whitespace-pre-wrap break-words\">At Voy, we're committed to providing you with the most appropriate and effective treatment for your weight loss journey. Here's why we don't mention specific prescription medications upfront:</p>\n<h2 id=\"h_01JAR4VDV8WKSM7KKQFG4S0FT5\" class=\"font-600 text-xl font-bold\">The right treatment plan for you</h2>\n<p class=\"whitespace-pre-wrap break-words\">We believe choosing the right treatment should always be made with your clinician once they know more about your circumstances. This allows us to:</p>\n<ul class=\"-mt-1 list-disc space-y-2 pl-8\">\n<li class=\"whitespace-normal break-words\">Ensures you receive the most suitable medication for your needs</li>\n<li class=\"whitespace-normal break-words\">Run a thorough assessment of your health history</li>\n<li class=\"whitespace-normal break-words\">Provides an opportunity to discuss potential benefits and risks</li>\n</ul>\n<h2 id=\"h_01JAR4VDV7X7YA6M6B4E00S727\" class=\"font-600 text-xl font-bold\">UK Advertising Regulations</h2>\n<ul class=\"-mt-1 list-disc space-y-2 pl-8\">\n<li class=\"whitespace-normal break-words\">Advertising restrictions in the UK prevent us from presenting all of our treatment options until you've had a clinical consultation.</li>\n<li class=\"whitespace-normal break-words\">This ensures that you receive personalised advice based on your individual health profile.</li>\n</ul>\n<h2 id=\"h_01JAR4VDV8SVA15ZN9CHH5G3G7\" class=\"font-600 text-xl font-bold\">How to Get Started</h2>\n<p class=\"whitespace-pre-wrap break-words\">To begin your journey with Voy:</p>\n<ol class=\"-mt-1 list-decimal space-y-2 pl-8\">\n<li class=\"whitespace-normal break-words\">Visit our <a href=\"http://www.joinvoy.com\">website</a>\n</li>\n<li class=\"whitespace-normal break-words\">Click on \"Am I Eligible\"</li>\n<li class=\"whitespace-normal break-words\">Complete our medical questionnaire</li>\n</ol>\n<p class=\"whitespace-pre-wrap break-words\">This first step helps our Clinical Team understand your needs and check if our treatment is the right fit for you.\u00a0</p>",
+  "user_segment_ids": []
+}

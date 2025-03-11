@@ -1,0 +1,32 @@
+{
+  "id": 26154029658388,
+  "url": "https://joinvoy.zendesk.com/api/v2/help_center/en-gb/articles/26154029658388.json",
+  "html_url": "https://joinvoy.zendesk.com/hc/en-gb/articles/26154029658388-How-does-refer-a-friend-work",
+  "author_id": 21863982565012,
+  "comments_disabled": false,
+  "draft": false,
+  "promoted": false,
+  "position": 0,
+  "vote_sum": 0,
+  "vote_count": 0,
+  "section_id": 20198655711124,
+  "created_at": "2024-04-30T12:14:31Z",
+  "updated_at": "2025-02-14T23:00:36Z",
+  "name": "How does refer-a-friend work?",
+  "title": "How does refer-a-friend work?",
+  "source_locale": "en-gb",
+  "locale": "en-gb",
+  "outdated": false,
+  "outdated_locales": [],
+  "edited_at": "2025-02-14T23:00:36Z",
+  "user_segment_id": null,
+  "permission_group_id": 2460252,
+  "content_tag_ids": [
+    "01GVFX2B4X32J69W7K9KP7SWK4",
+    "01GVFX39DCQSXWQ3Z6HKMHAK16",
+    "01HD46AZJ0J2W11G1QAYBTMT30"
+  ],
+  "label_names": [],
+  "body": "<p class=\"code-line\" dir=\"auto\" data-line=\"2\"><span class=\"wysiwyg-color-black\">We're delighted that you're considering sharing Voy with the people you know! Our refer-a-friend programme is our way of saying thank you for spreading the word about your weight loss journey and our service. Here's how it works:</span></p>\n<h3 id=\"for-your-friend\" class=\"code-line\" dir=\"auto\" data-line=\"6\"><span class=\"wysiwyg-color-black\">For your friend</span></h3>\n<p class=\"code-line\" dir=\"auto\" data-line=\"7\"><span class=\"wysiwyg-color-black\">They'll receive a 25% discount on their first order.</span></p>\n<h3 id=\"for-you\" class=\"code-line\" dir=\"auto\" data-line=\"9\"><span class=\"wysiwyg-color-black\">For you</span></h3>\n<p class=\"code-line\" dir=\"auto\" data-line=\"10\"><span class=\"wysiwyg-color-black\">You'll earn a discount on your next order based on how many friends you refer:</span></p>\n<ul class=\"code-line\" dir=\"auto\" data-line=\"11\">\n<li class=\"code-line\" dir=\"auto\" data-line=\"11\"><span class=\"wysiwyg-color-black\">One or two friends: 30% off your next order</span></li>\n<li class=\"code-line\" dir=\"auto\" data-line=\"12\"><span class=\"wysiwyg-color-black\">Three or more friends: 60% off your next order</span></li>\n</ul>\n<h2 id=\"how-to-refer-a-friend\" class=\"code-line\" dir=\"auto\" data-line=\"14\"><span class=\"wysiwyg-color-black\">How to refer a friend</span></h2>\n<ol class=\"code-line\" dir=\"auto\" data-line=\"16\">\n<li class=\"code-line\" dir=\"auto\" data-line=\"16\"><span class=\"wysiwyg-color-black\">Log into your Voy account</span></li>\n<li class=\"code-line\" dir=\"auto\" data-line=\"17\"><span class=\"wysiwyg-color-black\">Go to your\u00a0<a title=\"https://www.joinvoy.com/account/refer\" href=\"https://www.joinvoy.com/account/refer\" data-href=\"https://www.joinvoy.com/account/refer\">Refer a Friend</a>\u00a0page (top right corner of your account)</span></li>\n<li class=\"code-line\" dir=\"auto\" data-line=\"18\"><span class=\"wysiwyg-color-black\">Click the orange 'copy' button next to your referral link</span></li>\n<li class=\"code-line\" dir=\"auto\" data-line=\"19\"><span class=\"wysiwyg-color-black\">Share this link with your friend (paste it in a message)</span></li>\n</ol>\n<p class=\"code-line\" dir=\"auto\" data-line=\"21\"><span class=\"wysiwyg-color-black\">Your friend needs to use this link when placing their order for the discount to apply.<br></span></p>\n<h2 id=\"tracking-your-discounts\" class=\"code-line\" dir=\"auto\" data-line=\"23\"><span class=\"wysiwyg-color-black\">Tracking your discounts</span></h2>\n<p class=\"code-line\" dir=\"auto\" data-line=\"25\"><span class=\"wysiwyg-color-black\">Check your\u00a0<a title=\"https://www.joinvoy.com/account/refer\" href=\"https://www.joinvoy.com/account/refer\" data-href=\"https://www.joinvoy.com/account/refer\">Refer a Friend page</a>\u00a0to see the discount for your next order. Remember, this resets after each order is processed.</span></p>\n<p class=\"code-line\" dir=\"auto\" data-line=\"27\"><span class=\"wysiwyg-color-black\">We're excited to have you share the Voy experience with your friends. Together, we can create a community of support on your weight loss journey!<br><br>*You will receive the discount on your next order once the person you referred <strong>has placed an order and it has been approved</strong>. If they only sign up without placing an order, you will not receive the discount.<br></span></p>\n<p class=\"undefined\" data-line=\"27\">\u00a0</p>\n<h2 id=\"01JM3AYGVGJKV7YHW64V9P0RTR\" class=\"code-line\" dir=\"auto\" data-line=\"23\"><span class=\"wysiwyg-color-black\">Other Discounts</span></h2>\n<p><span class=\"wysiwyg-color-black\">We do not currently offer any other discounts such as NHS discounts, Key Worker discounts or Student discounts.</span></p>",
+  "user_segment_ids": []
+}

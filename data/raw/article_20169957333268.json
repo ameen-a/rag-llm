@@ -1,0 +1,36 @@
+{
+  "id": 20169957333268,
+  "url": "https://joinvoy.zendesk.com/api/v2/help_center/en-gb/articles/20169957333268.json",
+  "html_url": "https://joinvoy.zendesk.com/hc/en-gb/articles/20169957333268-How-do-I-log-into-my-account",
+  "author_id": 6784296840212,
+  "comments_disabled": false,
+  "draft": false,
+  "promoted": false,
+  "position": 0,
+  "vote_sum": -1,
+  "vote_count": 3,
+  "section_id": 20198170377876,
+  "created_at": "2023-10-19T16:15:47Z",
+  "updated_at": "2024-10-22T19:48:59Z",
+  "name": "How do I log into my account?",
+  "title": "How do I log into my account?",
+  "source_locale": "en-gb",
+  "locale": "en-gb",
+  "outdated": false,
+  "outdated_locales": [],
+  "edited_at": "2024-10-22T19:48:59Z",
+  "user_segment_id": null,
+  "permission_group_id": 2460252,
+  "content_tag_ids": [
+    "01GVG165HJ0QYW6PC3FE54YM2X",
+    "01HD4BFP8AAZ6CBM6J5Q13Y9HR"
+  ],
+  "label_names": [
+    "Reset",
+    "Error",
+    "Password",
+    "Login"
+  ],
+  "body": "<p class=\"code-line\" dir=\"auto\" data-line=\"2\"><span class=\"wysiwyg-color-black\">We understand that login issues can be frustrating. Don't worry \u2013 we're here to help you get back into your account. If you're having trouble logging in, please try the following steps:</span></p>\n<h2 id=\"troubleshooting-steps\" class=\"code-line\" dir=\"auto\" data-line=\"4\"><span class=\"wysiwyg-color-black\">Troubleshooting Steps</span></h2>\n<p class=\"code-line\" dir=\"auto\" data-line=\"6\"><span class=\"wysiwyg-color-black\"><strong>1. Verify Your Credentials</strong></span></p>\n<p><span class=\"wysiwyg-color-black\">Double-check that you're using the correct email address and password. </span><span class=\"wysiwyg-color-black\">Remember, passwords are case-sensitive</span></p>\n<p class=\"code-line\" dir=\"auto\" data-line=\"18\"><span class=\"wysiwyg-color-black\"><strong>2. Check for Typos</strong></span></p>\n<ol>\n<li style=\"list-style-type: none;\">\n<ol class=\"code-line\" dir=\"auto\" data-line=\"19\">\n<li class=\"code-line\" dir=\"auto\" data-line=\"19\"><span class=\"wysiwyg-color-black\">Ensure there are no typos in your email address</span></li>\n<li class=\"code-line\" dir=\"auto\" data-line=\"20\"><span class=\"wysiwyg-color-black\">Even a small error can prevent successful login</span></li>\n</ol>\n</li>\n</ol>\n<p><span class=\"wysiwyg-color-black\"><strong style=\"font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;\">3. Clear Browser Data</strong><br></span><span class=\"wysiwyg-color-black\">Clear your browser's cookies and cache, t</span><span class=\"wysiwyg-color-black\">his can resolve many common login issues</span></p>\n<p><span class=\"wysiwyg-color-black\"><strong>4. Try a Different Device or Browser</strong></span></p>\n<p><span class=\"wysiwyg-color-black\">Sometimes, device-specific issues can affect login, try logging in</span><span class=\"wysiwyg-color-black\"> from a different device or browser</span></p>\n<p><strong style=\"color: #000000; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;\">5. Reset Your Password</strong></p>\n<p>If you're still unable to log in, try resetting your password using the following link: <span class=\"wysiwyg-color-black\" style=\"font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;\"><a title=\"https://www.joinvoy.com/forgot-password\" href=\"https://www.joinvoy.com/forgot-password\" data-href=\"https://www.joinvoy.com/forgot-password\">Reset Password</a></span></p>\n<p>If you've not receievd your reset password email, check your spam folder, sometimes it can find itself in this folder.</p>\n<h2 id=\"still-having-trouble\" class=\"code-line\" dir=\"auto\" data-line=\"27\"><span class=\"wysiwyg-color-black\">Still Having Trouble?</span></h2>\n<p class=\"code-line\" dir=\"auto\" data-line=\"29\"><span class=\"wysiwyg-color-black\">If you've tried these steps and are still unable to log in, we're here to help:</span></p>\n<ul class=\"code-line\" dir=\"auto\" data-line=\"31\">\n<li class=\"code-line\" dir=\"auto\" data-line=\"31\"><span class=\"wysiwyg-color-black\"><strong>Email</strong>: Contact us at\u00a0<a title=\"mailto:help@joinvoy.com\" href=\"mailto:help@joinvoy.com\" data-href=\"mailto:help@joinvoy.com\">help@joinvoy.com</a></span></li>\n<li class=\"code-line\" dir=\"auto\" data-line=\"32\"><span class=\"wysiwyg-color-black\"><strong>Phone</strong>: Call us at 020 3912 9885 (Monday to Friday, 9:00 AM - 5:00 PM)</span></li>\n</ul>\n<p class=\"code-line\" dir=\"auto\" data-line=\"34\"><span class=\"wysiwyg-color-black\">Our Customer Care team will be happy to assist you!</span></p>\n<h2 id=\"preventive-measures\" class=\"code-line\" dir=\"auto\" data-line=\"36\"><span class=\"wysiwyg-color-black\">Preventive Measures</span></h2>\n<p class=\"code-line\" dir=\"auto\" data-line=\"38\"><span class=\"wysiwyg-color-black\">To avoid future login issues:</span></p>\n<ul class=\"code-line\" dir=\"auto\" data-line=\"39\">\n<li class=\"code-line\" dir=\"auto\" data-line=\"39\"><span class=\"wysiwyg-color-black\">Consider using a password manager to securely store your login information</span></li>\n<li class=\"code-line\" dir=\"auto\" data-line=\"41\"><span class=\"wysiwyg-color-black\">Make sure your email address associated with your account</span></li>\n</ul>\n<p class=\"code-line\" dir=\"auto\" data-line=\"43\"><span class=\"wysiwyg-color-black\">We're committed to ensuring you have smooth access to your Voy account so you can focus on your weight loss journey. Don't hesitate to reach out if you need any further assistance!</span></p>",
+  "user_segment_ids": []
+}
