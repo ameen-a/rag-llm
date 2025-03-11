@@ -19,10 +19,13 @@ class VoyZendeskAPI:
         logger.info("Initialized Zendesk API class")
     
     def _make_request(self, endpoint: str) -> Dict[str, Any]:
-        """Make GET request to API endpoint"""
+        """Make GET request to API endpoint, with rate limiting"""
         url = f"{self.BASE_URL}/{endpoint}"
         logger.debug(f"Making request to {url}")
-        
+                        
+        # pro-active rate limiting
+        time.sleep(self.rate_limit_delay)
+            
         max_retries = 3
         retry_count = 0
         backoff_time = 1.0
@@ -31,9 +34,6 @@ class VoyZendeskAPI:
             try:
                 response = requests.get(url)
                 response.raise_for_status()
-                
-                # avoid API rate limits
-                time.sleep(self.rate_limit_delay)
                 
                 return response.json()
                 
@@ -46,56 +46,46 @@ class VoyZendeskAPI:
                 
                 logger.warning(f"Request failed, retrying in {backoff_time:.1f}s (Attempt {retry_count}/{max_retries})")
                 time.sleep(backoff_time)
-                backoff_time *= 2 # exponential backoff
+                backoff_time *= 2 # exponential backoff for retrying failed requests
         
         raise RuntimeError("Request failed with unknown error")
     
     def get_all_categories(self) -> List[Dict[str, Any]]:
-        """Fetch all FAQ categories."""
+        """Fetch FAQ categories"""
         logger.info("Fetching all categories")
         response = self._make_request("categories.json")
         return response.get("categories", [])
     
     def get_sections_by_category(self, category_id: int) -> List[Dict[str, Any]]:
-        """Fetch all sections for a given category."""
+        """Fetch sections for a given category"""
         logger.info(f"Fetching sections for category {category_id}")
         response = self._make_request(f"categories/{category_id}/sections.json")
         return response.get("sections", [])
     
     def get_article(self, article_id: int) -> Dict[str, Any]:
-        """Fetch a specific article by ID."""
+        """Fetch a specific article by ID"""
         logger.info(f"Fetching article {article_id}")
         response = self._make_request(f"articles/{article_id}.json")
         return response.get("article", {})
     
     def get_articles_by_section(self, section_id: int) -> List[Dict[str, Any]]:
-        """Fetch all articles for a given section."""
+        """Fetch all articles for a given section"""
         logger.info(f"Fetching articles for section {section_id}")
         response = self._make_request(f"sections/{section_id}/articles.json")
         return response.get("articles", [])
     
     def extract_all_articles(self, save_raw: bool = True, raw_dir: str = "../data/raw") -> List[Dict[str, Any]]:
-        """
-        Extract all articles from the Zendesk API efficiently.
-        
-        This method saves only the individual article_{id}.json files and nothing else.
-        
-        Args:
-            save_raw: Whether to save raw article responses to disk
-            raw_dir: Directory to save raw article responses to
-            
-        Returns:
-            List of processed article objects with content
-        """
+        """Extract all articles from the Zendesk API"""
+
         logger.info("Beginning article extraction")
         
         if save_raw:
+            # store raw data here
             os.makedirs(raw_dir, exist_ok=True)
             
         all_articles = []
         
-        # First collect all article IDs by traversing the categories and sections
-        # but don't save any of these responses to disk
+        # step 1: collect all article IDs by traversing the categories and sections
         article_ids = []
         categories = self.get_all_categories()
         
@@ -121,7 +111,7 @@ class VoyZendeskAPI:
                         "title": article_listing.get("title", "")
                     })
         
-        # Now fetch each article in full and save only these files
+        # step 2: fetch each article's data 
         logger.info(f"Found {len(article_ids)} articles to fetch")
         for idx, article_meta in enumerate(article_ids):
             article_id = article_meta["article_id"]
@@ -129,21 +119,19 @@ class VoyZendeskAPI:
             
             article = self.get_article(article_id)
             
-            # Only save the individual article files
+            # step 3: save and process article data
             if save_raw:
                 with open(f"{raw_dir}/article_{article_id}.json", "w") as f:
                     json.dump(article, f, indent=2)
-            
-            # Clean HTML from article body
-            article_body = article.get("body", "")
+  
+            article_body = article.get("body", "")           
             cleaned_body = clean_html(article_body)
-            
-            # Create structured article object
-            processed_article = {
+        
+            processed_article = { # create structured article data object
                 "id": article_id,
                 "title": article.get("title", ""),
                 "body": cleaned_body,
-                "html_body": article_body,  # Keep the original HTML too
+                "html_body": article_body,
                 "url": article.get("html_url", ""),
                 "category": {
                     "id": article_meta["category_id"],
