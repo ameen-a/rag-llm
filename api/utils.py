@@ -22,7 +22,7 @@ def clean_html(html_content: str) -> str:
     return text
 
 def extract_article_body(html_content: str) -> str:
-    """Extract specifically the 'article-body' class content from HTML"""
+    """Extract the article-body class content from HTML"""
     if not html_content:
         return ""
     

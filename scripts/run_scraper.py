@@ -26,7 +26,7 @@ os.makedirs(os.path.dirname(output_file), exist_ok=True)
 api = VoyZendeskAPI()
 articles = api.extract_all_articles(save_raw=True, raw_dir=raw_dir)
 
-# save processed articles
+# save articles into single JSON
 with open(output_file, 'w') as f:
     json.dump(articles, f, indent=2)
 
