@@ -11,11 +11,7 @@ logger = logging.getLogger(__name__)
 class RAG:
     def __init__(self, model_name="gpt-4o", temperature=0):
         """
-        initialize the rag system.
         
-        args:
-            model_name: name of the llm model to use
-            temperature: temperature parameter for the llm
         """
         self.llm = ChatOpenAI(model_name=model_name, temperature=temperature)
         self.retriever = Retriever()
@@ -24,11 +20,6 @@ class RAG:
         """
         format retrieved documents into a context string.
         
-        args:
-            context_docs: list of retrieved document dictionaries
-            
-        returns:
-            formatted context string
         """
         context_parts = []
         for i, doc in enumerate(context_docs):

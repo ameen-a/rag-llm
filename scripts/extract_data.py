@@ -9,6 +9,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from api.get_data import VoyZendeskAPI
 
+logger = logging.getLogger(__name__)
+
 # configure basic logging
 logging.basicConfig(
     level=logging.INFO,
@@ -30,4 +32,4 @@ articles = api.extract_all_articles(save_raw=True, raw_dir=raw_dir)
 with open(output_file, 'w') as f:
     json.dump(articles, f, indent=2)
 
-print(f"Extraction complete - {len(articles)} articles saved")
+logger.info(f"Extraction complete - {len(articles)} articles saved")

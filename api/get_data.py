@@ -9,14 +9,13 @@ from .utils import clean_html
 logger = logging.getLogger(__name__)
 
 class VoyZendeskAPI:
-    """Client for extracting API data from Voy's Zendesk Help Center"""
-    
-    # class variables
+    """Client for extracting API data from Zendesk Help Center"""
+
     BASE_URL = "https://joinvoy.zendesk.com/api/v2/help_center/en-gb" 
     
     def __init__(self, rate_limit_delay: float = 0.5):
         self.rate_limit_delay = rate_limit_delay
-        logger.info("Initialized Zendesk API class")
+        logger.info("Initialised Zendesk API class")
     
     def _make_request(self, endpoint: str) -> Dict[str, Any]:
         """Make GET request to API endpoint, with rate limiting"""
@@ -148,5 +147,4 @@ class VoyZendeskAPI:
             
             all_articles.append(processed_article)
         
-        logger.info(f"Completed extraction of {len(all_articles)} articles")
         return all_articles

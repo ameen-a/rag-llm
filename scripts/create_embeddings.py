@@ -8,6 +8,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from database.embeddings import Embeddings
+from database.chunking import DocumentChunker
 
 # configure basic logging
 logging.basicConfig(
@@ -19,16 +20,38 @@ logging.getLogger("httpx").setLevel(logging.WARNING)
 
 logger = logging.getLogger(__name__)
 
-# input and output paths
-input_file = "../data/processed/chunks.json"
-output_file = "../data/embeddings/chunks_with_embeddings.json"
+# paths
+articles_file = os.path.join(Path(__file__).resolve().parent.parent, "data/processed/articles.json")
+chunks_file = os.path.join(Path(__file__).resolve().parent.parent, "data/processed/chunks.json")
+output_file = os.path.join(Path(__file__).resolve().parent.parent, "data/embeddings/chunks_with_embeddings.json")
 
-# create output directory
+# create output directories
+os.makedirs(os.path.dirname(chunks_file), exist_ok=True)
 os.makedirs(os.path.dirname(output_file), exist_ok=True)
 
-# load chunks
-logger.info(f"Loading chunks from {input_file}")
-with open(input_file, 'r') as f:
+# step 1: create chunks from articles
+logger.info(f"Loading articles from {articles_file}")
+try:
+    with open(articles_file, 'r') as f:
+        documents = json.load(f)
+    logger.info(f"Loaded {len(documents)} articles")
+    
+    # create chunks
+    chunker = DocumentChunker()
+    chunks = chunker.chunk_documents(documents)
+    
+    # save chunks
+    chunker.save_chunks(chunks, output_path=chunks_file)
+    
+    logger.info(f"chunking process complete - {len(chunks)} chunks created")
+except FileNotFoundError:
+    logger.error(f"Articles file not found: {articles_file}")
+    logger.error("Please run extract_data.py first to generate the articles file")
+    sys.exit(1)
+
+# step 2: create embeddings for chunks
+logger.info(f"Loading chunks from {chunks_file}")
+with open(chunks_file, 'r') as f:
     chunks = json.load(f)
 logger.info(f"Loaded {len(chunks)} chunks")
 
@@ -36,4 +59,4 @@ logger.info(f"Loaded {len(chunks)} chunks")
 embeddings = Embeddings()
 chunks_with_embeddings = embeddings.create_embeddings_for_chunks(chunks, output_path=output_file)
 
-logger.info(f"embedding process complete - {len(chunks_with_embeddings)} chunks processed")
+logger.info(f"Embedding process complete - {len(chunks_with_embeddings)} chunks processed")
