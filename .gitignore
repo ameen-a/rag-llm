@@ -1,5 +1,5 @@
 .env
 data/embeddings/chroma_db/chroma.sqlite3
-database/__pycache__/__init__.cpython-312.pyc
-data/embeddings/chunks_with_embeddings.json
-data/embeddings/chunks_with_embeddings.json
+*.pyc
+*.bin
+*.json
