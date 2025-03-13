@@ -9,6 +9,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from database.embeddings import Embeddings
 from database.chunking import DocumentChunker
+from rag.vectorstore import VectorStore
 
 # configure basic logging
 logging.basicConfig(
@@ -58,5 +59,9 @@ logger.info(f"Loaded {len(chunks)} chunks")
 # initialize embeddings class and create embeddings
 embeddings = Embeddings()
 chunks_with_embeddings = embeddings.create_embeddings_for_chunks(chunks, output_path=output_file)
+
+vector_store = VectorStore()
+vector_store.load_from_chunks_file(chunks_file)
+logger.info("Vector store populated with chunks")
 
 logger.info(f"Embedding process complete - {len(chunks_with_embeddings)} chunks processed")

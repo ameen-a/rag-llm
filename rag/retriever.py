@@ -1,11 +1,11 @@
 from langchain_openai import OpenAIEmbeddings
-from vectorstore import VectorStore
+from rag.vectorstore import VectorStore
 import logging
 
 logger = logging.getLogger(__name__)
 
 class Retriever:
-    def __init__(self, vector_store=None, persist_directory="../data/embeddings/chroma_db"):
+    def __init__(self, vector_store=None, persist_directory=None):
         """
         Initialize the retriever.
         
@@ -33,6 +33,7 @@ class Retriever:
             List of retrieved documents with their relevance scores
         """
         results = self.db.similarity_search_with_relevance_scores(query, k=k)
+
         return results
     
     def retrieve_with_filter(self, query, filter_dict, k=3):
@@ -73,21 +74,28 @@ class Retriever:
             })
         return formatted_results
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
+
+#     try:
+#         from rag.retriever import Retriever
+#     except ImportError:
+#         from retriever import Retriever
     
-    # initialize retriever with existing vector store
-    retriever = Retriever()
+#     # initialize retriever with existing vector store
+#     retriever = Retriever()
     
-    # test retrieval query
-    query = "what kind of weight loss can I expect with GLP-1?"
-    results = retriever.retrieve(query, k=3)
+#     # test retrieval query
+#     query = "what kind of weight loss can I expect with GLP-1?"
+#     results = retriever.retrieve(query, k=3)
     
-    # Print the results
-    logger.info(f"\nQuery: {query}")
-    formatted_results = retriever.format_retrieved_documents(results)
+#     # Print the results
+#     logger.info(f"\nQuery: {query}")
+#     formatted_results = retriever.format_retrieved_documents(results)
+#     print("formatted_results")
+#     print(formatted_results)
     
-    for i, result in enumerate(formatted_results):
-        logger.info(f"\nResult {i+1} (Score: {result['relevance_score']:.4f})")
-        logger.info(f"Title: {result['metadata']['title']}")
-        logger.info(f"Content: {result['content']}...")
-        logger.info("-" * 80)
+#     for i, result in enumerate(formatted_results):
+#         logger.info(f"\nResult {i+1} (Score: {result['relevance_score']:.4f})")
+#         logger.info(f"Title: {result['metadata']['title']}")
+#         logger.info(f"Content: {result['content']}...")
+#         logger.info("-" * 80)

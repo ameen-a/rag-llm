@@ -1,6 +1,6 @@
 from langchain_openai import ChatOpenAI
 from langchain.schema import HumanMessage, SystemMessage
-from retriever import Retriever
+from rag.retriever import Retriever
 from dotenv import load_dotenv
 import logging
 
@@ -11,16 +11,13 @@ logger = logging.getLogger(__name__)
 class RAG:
     def __init__(self, model_name="gpt-4o", temperature=0):
         """
-        
+        Orchestrate LLM and retriever for RAG
         """
         self.llm = ChatOpenAI(model_name=model_name, temperature=temperature)
         self.retriever = Retriever()
     
     def _format_context(self, context_docs):
-        """
-        format retrieved documents into a context string.
-        
-        """
+        """Format retrieved docs for prompt"""
         context_parts = []
         for i, doc in enumerate(context_docs):
             title = doc['metadata'].get('title', 'Untitled')
@@ -29,43 +26,30 @@ class RAG:
         
         return "\n".join(context_parts)
     
-
-
     def answer_question(self, query, k=3):
-        """
-        answer a question using retrieval-augmented generation.
-        
-        args:
-            query: user question
-            k: number of documents to retrieve
-            
-        returns:
-            dictionary with question, answer, and context
-        """
-        # retrieve relevant documents
+        """Answer query with RAG"""
+
+        # get relevant docs
         results = self.retriever.retrieve(query, k=k)
         context_docs = self.retriever.format_retrieved_documents(results)
         
-        # format context
+        # create prompt
         context_str = self._format_context(context_docs)
-        
-        # create messages for the llm
         system_message = SystemMessage(content="""
-        you are a helpful assistant that answers questions based on the provided context.
-        if the answer cannot be determined from the context, acknowledge that and provide
-        general information if possible. always cite your sources when appropriate.
+        You are a helpful RAG-based assistant that answers questions based on the provided context.
+        If the answer cannot be determined from the context, acknowledge that and provide
+        general information if possible. Always cite your sources when appropriate.
         """)
-        
         human_message = HumanMessage(content=f"""
-        please answer the following question using the provided context:
+        Please answer the following question using the provided context:
         
-        question: {query}
+        Question: {query}
         
-        context:
+        Context:
         {context_str}
         """)
         
-        # get response from llm
+        # query LLM
         response = self.llm.invoke([system_message, human_message])
         
         return {
@@ -74,20 +58,25 @@ class RAG:
             "context": context_docs
         }
 
-if __name__ == "__main__":
-    # Initialize the RAG system
-    rag = RAG()
+# if __name__ == "__main__":
+    # try:
+    #     from rag.retriever import Retriever
+    # except ImportError:
+    #     from retriever import Retriever
     
-    # Ask a question
-    query = "using the documents provided, answer the following question: what kind of weight loss can I expect with GLP-1? give me A PERCENTAGE. Also tell me where you for this data from"
-    result = rag.answer_question(query)
+
+    # rag = RAG()
     
-    # Print the result
-    # print(f"Question: {result['question']}")
-    print("\nAnswer:")
-    print(result['answer'])
+    # query = "using the documents provided, answer the following question: what kind of weight loss can I expect with GLP-1? give me A PERCENTAGE. Also tell me where you for this data from"
+    # result = rag.answer_question(query)
+    # # print(query)
+    # # print(result)
+    # # Print the result
+    # logger.info(f"Question: {result['question']}")
+    # logger.info(f"\nAnswer:")
+    # logger.info(result['answer'])
     
-    # # Optionally, print the context sources
-    # print("\nContext Sources:")
-    # for i, doc in enumerate(result['context']):
-    #     print(f"{i+1}. {doc['metadata']['title']} (Score: {doc['relevance_score']:.4f})")
+    # # # # Optionally, print the context sources
+    # # print("\nContext Sources:")
+    # # for i, doc in enumerate(result['context']):
+    # #     print(f"{i+1}. {doc['metadata']['title']} (Score: {doc['relevance_score']:.4f})")

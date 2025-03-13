@@ -61,6 +61,7 @@ class DocumentChunker:
         return output_path
 
 if __name__ == "__main__":
+
     # load the documents
     with open("../data/processed/articles.json", 'r') as f:
         documents = json.load(f)
