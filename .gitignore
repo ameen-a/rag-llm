@@ -1,1 +1,3 @@
 .env
+data/embeddings/chroma_db/chroma.sqlite3
+database/__pycache__/__init__.cpython-312.pyc

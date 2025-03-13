@@ -1,7 +1,8 @@
-# retriever.py
 from langchain_openai import OpenAIEmbeddings
-from ..vectorstore import VectorStore
-import os
+from vectorstore import VectorStore
+import logging
+
+logger = logging.getLogger(__name__)
 
 class Retriever:
     def __init__(self, vector_store=None, persist_directory="../data/embeddings/chroma_db"):
@@ -74,19 +75,19 @@ class Retriever:
 
 if __name__ == "__main__":
     
-    # Initialize the retriever with an existing vector store
+    # initialize retriever with existing vector store
     retriever = Retriever()
     
-    # Test a retrieval
-    query = "What medications does Voy prescribe for weight loss?"
+    # test retrieval query
+    query = "what kind of weight loss can I expect with GLP-1?"
     results = retriever.retrieve(query, k=3)
     
     # Print the results
-    print(f"\nQuery: {query}")
+    logger.info(f"\nQuery: {query}")
     formatted_results = retriever.format_retrieved_documents(results)
     
     for i, result in enumerate(formatted_results):
-        print(f"\nResult {i+1} (Score: {result['relevance_score']:.4f})")
-        print(f"Title: {result['metadata']['title']}")
-        print(f"Content: {result['content'][:200]}...")
-        print("-" * 80)
+        logger.info(f"\nResult {i+1} (Score: {result['relevance_score']:.4f})")
+        logger.info(f"Title: {result['metadata']['title']}")
+        logger.info(f"Content: {result['content']}...")
+        logger.info("-" * 80)
