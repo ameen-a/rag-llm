@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <img src="{{ url_for('static', filename='images/manual.png') }}" alt="Company Logo" class="logo">
+            <h1>RAG Assistant</h1>
+        </div>
+        
+        <div class="chat-messages" id="chat-messages">
+            <div class="message system">
+                <div class="message-content">
+                    Hello! I'm your RAG-powered assistant. How can I help you today?
+                </div>
+            </div>
+        </div>
+        
+        <div class="chat-input-container">
+            <textarea id="chat-input" placeholder="type your message here..." class="chat-input"></textarea>
+            <button id="send-button" class="send-button">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                </svg>
+            </button>
+        </div>
+        
+        <div class="sources-container" id="sources-container">
+            <h3>Sources</h3>
+            <div id="sources-list"></div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

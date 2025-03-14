@@ -1,0 +1,9 @@
+langchain
+langchain_openai
+openai
+python-dotenv
+requests
+uuid
+pathlib
+flask
+flask-cors

@@ -24,8 +24,9 @@ logger.info(f"initializing rag system with model: {MODEL_NAME}")
 rag = RAG(model_name=MODEL_NAME, temperature=TEMPERATURE)
 
 # get query from user
-query = "using the documents provided, answer the following question: what kind of weight loss can I expect with GLP-1? give me A PERCENTAGE. Also, you MUST tell me where you got this data from"
-
+# query = "what kind of weight loss can I expect with GLP-1? give me A PERCENTAGE. Also, you MUST tell me where you got this data from"
+# query = "what is the titration pathway for wegovy?"
+query = "what payment options are available?"
 # process the query
 result = rag.answer_question(query, k=K)
 

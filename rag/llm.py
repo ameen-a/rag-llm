@@ -38,7 +38,7 @@ class RAG:
         system_message = SystemMessage(content="""
         You are a helpful RAG-based assistant that answers questions based on the provided context.
         If the answer cannot be determined from the context, acknowledge that and provide
-        general information if possible. Always cite your sources when appropriate.
+        general information if possible. You must ALWAYS cite your sources with the document title. 
         """)
         human_message = HumanMessage(content=f"""
         Please answer the following question using the provided context:

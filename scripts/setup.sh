@@ -50,9 +50,9 @@ python scripts/extract_data.py
 display_step 6 "Creating document chunks and embeddings"
 python scripts/create_embeddings.py
 
-# create vector store
-display_step 7 "Loading embeddings into vector store"
-python -c "from rag.vectorstore import VectorStore; vs = VectorStore(); vs.load_from_chunks_file()"
+# # create vector store
+# display_step 7 "Loading embeddings into vector store"
+# python -c "from rag.vectorstore import VectorStore; vs = VectorStore(); vs.load_from_chunks_file()"
 
 # run query
 display_step 8 "Running query against the RAG system"
