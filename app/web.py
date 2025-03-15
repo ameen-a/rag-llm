@@ -8,28 +8,24 @@ from rag.llm import RAG
 from rag.constants import MODEL_NAME, TEMPERATURE, K
 from dotenv import load_dotenv
 
-# load environment variables
 load_dotenv()
 
-# configure logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
 
-# initialize flask app
 app = Flask(__name__, 
             template_folder='../frontend/templates',
             static_folder='../frontend/static')
 CORS(app)  # enable cors for all routes
 
-# initialize rag system
 rag = RAG(model_name=MODEL_NAME, temperature=TEMPERATURE)
 
 @app.route('/')
 def index():
-    # serve the main chat interface
+    # serve main chat interface
     return render_template('index.html')
 
 @app.route('/api/chat', methods=['POST'])
@@ -44,17 +40,13 @@ def chat():
     
     # stream the response
     def generate():
-        # process the query with rag
+        # process query with rag
         result = rag.answer_question(query, k=K)
-        
-        # in a real streaming implementation, you would yield chunks as they're generated
-        # for now, we'll simulate streaming with the complete answer
+
         answer = result['answer']
         
-        # simple simulation of streaming by sending one word at a time
         words = answer.split()
         for i, word in enumerate(words):
-            # yield the word followed by space (except for last word)
             suffix = " " if i < len(words) - 1 else ""
             yield word + suffix
             time.sleep(0.05)  # small delay to simulate streaming

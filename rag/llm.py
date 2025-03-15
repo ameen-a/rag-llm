@@ -1,6 +1,7 @@
 from langchain_openai import ChatOpenAI
 from langchain.schema import HumanMessage, SystemMessage
 from rag.retriever import Retriever
+from rag.prompts import SYSTEM_PROMPT, HUMAN_PROMPT, format_context
 from dotenv import load_dotenv
 import logging
 
@@ -18,13 +19,7 @@ class RAG:
     
     def _format_context(self, context_docs):
         """Format retrieved docs for prompt"""
-        context_parts = []
-        for i, doc in enumerate(context_docs):
-            title = doc['metadata'].get('title', 'Untitled')
-            content = doc['content']
-            context_parts.append(f"Source: {title}\n{content}\n")
-        
-        return "\n".join(context_parts)
+        return format_context(context_docs)
     
     def answer_question(self, query, k=3):
         """Answer query with RAG"""
@@ -35,19 +30,11 @@ class RAG:
         
         # create prompt
         context_str = self._format_context(context_docs)
-        system_message = SystemMessage(content="""
-        You are a helpful RAG-based assistant that answers questions based on the provided context.
-        If the answer cannot be determined from the context, acknowledge that and provide
-        general information if possible. You must ALWAYS cite your sources with the document title. 
-        """)
-        human_message = HumanMessage(content=f"""
-        Please answer the following question using the provided context:
-        
-        Question: {query}
-        
-        Context:
-        {context_str}
-        """)
+        system_message = SystemMessage(content=SYSTEM_PROMPT)
+        human_message = HumanMessage(content=HUMAN_PROMPT.format(
+            query=query,
+            context_str=context_str
+        ))
         
         # query LLM
         response = self.llm.invoke([system_message, human_message])
