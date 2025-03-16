@@ -10,7 +10,6 @@ logger = logging.getLogger(__name__)
 class VectorStore:
     def __init__(self, persist_directory=None):
         """Initialise Chroma vector store for RAG"""
-        
         # fix path handling to be relative to the project root
         if persist_directory is None:
             # use absolute path based on this file's location
@@ -39,7 +38,6 @@ class VectorStore:
     
     def add_documents(self, chunks):
         """ Add document chunked embeedings to vector store"""
-
         texts = [chunk['text'] for chunk in chunks]
         metadatas = [chunk['metadata'] for chunk in chunks]
         self.db.add_texts(texts=texts, metadatas=metadatas)
@@ -48,7 +46,6 @@ class VectorStore:
     
     def load_from_chunks_file(self, chunks_path=None):
         """Load embedding chunks from JSON to the vector store"""
-        
         if chunks_path is None:
             chunks_path = os.path.join(
                 Path(__file__).resolve().parent.parent,
@@ -63,9 +60,3 @@ class VectorStore:
     
     def get_db(self):
         return self.db
-
-if __name__ == "__main__":
-
-    vector_store = VectorStore()
-    vector_store.load_from_chunks_file()
-    logger.info("Vector store created and populated successfully")

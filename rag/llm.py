@@ -11,9 +11,7 @@ logger = logging.getLogger(__name__)
 
 class RAG:
     def __init__(self, model_name="gpt-4o", temperature=0):
-        """
-        Orchestrate LLM and retriever for RAG
-        """
+        """Orchestrate LLM and retriever for RAG"""
         self.llm = ChatOpenAI(model_name=model_name, temperature=temperature)
         self.retriever = Retriever()
     

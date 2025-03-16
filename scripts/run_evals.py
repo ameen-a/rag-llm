@@ -93,10 +93,9 @@ def run_evaluations(ragas_data):
     
     return results
 
-def visualize_results(results):
-    """visualize evaluation results"""
+def visualise_results(results):
+    """Save abd plot evaluation results"""
     
-    # convert to dataframe - newer ragas returns an EvaluationResult object
     df_results = results.to_pandas()
     
     # calculate overall scores - only on numeric columns
@@ -105,54 +104,52 @@ def visualize_results(results):
     # plot results
     plt.figure(figsize=(12, 6))
     avg_scores.plot(kind="bar", color="skyblue")
-    plt.title("rag system evaluation results")
-    plt.ylabel("score (0-1)")
+    plt.title("RAG system evaluation results")
+    plt.ylabel("Score (0-1)")
     plt.ylim(0, 1)
     plt.xticks(rotation=45)
     plt.tight_layout()
     
-    # save figure
+    # save figure and results
     os.makedirs("data/evaluation", exist_ok=True)
     plt.savefig("data/evaluation/rag_evaluation_results.png")
-    
-    # save detailed results
     df_results.to_csv("data/evaluation/detailed_results.csv", index=False)
     
-    logger.info(f"overall average scores:\n{avg_scores}")
+    logger.info(f"Overall average scores:\n{avg_scores}")
     return avg_scores
 
-def analyze_issues(ragas_data, results_df):
-    """analyze specific issues in the rag system"""
+def analyse_issues(ragas_data, results_df):
+    """Analyze specific issues in the RAG system"""
     
-    # find worst performing questions
+    # get worst performing questions
     faithfulness_issues = results_df.sort_values("faithfulness").head(3)
     relevancy_issues = results_df.sort_values("answer_relevancy").head(3)
     
-    logger.info("\n===== potential hallucination issues =====")
+    logger.info("===== Potential hallucination issues =====")
     for i, row in faithfulness_issues.iterrows():
         q_idx = row.name
-        logger.info(f"question: {ragas_data['question'][q_idx]}")
-        logger.info(f"answer: {ragas_data['answer'][q_idx]}")
-        logger.info(f"faithfulness score: {row['faithfulness']:.2f}")
+        logger.info(f"Question: {ragas_data['question'][q_idx]}")
+        logger.info(f"Answer: {ragas_data['answer'][q_idx]}")
+        logger.info(f"Faithfulness score: {row['faithfulness']:.2f}")
         logger.info("-" * 80)
     
-    logger.info("\n===== potential relevancy issues =====")
+    logger.info("===== Potential relevancy issues =====")
     for i, row in relevancy_issues.iterrows():
         q_idx = row.name
-        logger.info(f"question: {ragas_data['question'][q_idx]}")
-        logger.info(f"answer: {ragas_data['answer'][q_idx]}")
-        logger.info(f"relevancy score: {row['answer_relevancy']:.2f}")
+        logger.info(f"Question: {ragas_data['question'][q_idx]}")
+        logger.info(f"Answer: {ragas_data['answer'][q_idx]}")
+        logger.info(f"Relevancy score: {row['answer_relevancy']:.2f}")
         logger.info("-" * 80)
 
 def main():
-    """run rag evaluation process"""
-    # initialize rag system
-    logger.info(f"initializing rag system with model: {MODEL_NAME}")
+
+    # initialise RAG
+    logger.info(f"Initialising RAG system with model: {MODEL_NAME}")
     rag = RAG(model_name=MODEL_NAME, temperature=TEMPERATURE)
     
-    # load evaluation dataset
-    eval_dataset = load_eval_dataset() # no args to load from default path
-    logger.info(f"loaded {len(eval_dataset)} evaluation questions")
+    # get evals
+    eval_dataset = load_eval_dataset()
+    logger.info(f"Loaded {len(eval_dataset)} evaluation questions")
     
     # prepare data for ragas
     ragas_data = prepare_ragas_dataset(eval_dataset, rag)
@@ -160,16 +157,16 @@ def main():
     # run evaluations
     results = run_evaluations(ragas_data)
     
-    # visualize results
-    avg_scores = visualize_results(results)
+    # get results
+    avg_scores = visualise_results(results)
     
-    # analyze specific issues
+    # analyse specific issues
     results_df = results.to_pandas()
-    analyze_issues(ragas_data, results_df)
+    analyse_issues(ragas_data, results_df)
     
-    # calculate overall rag score
+    # get overall score
     overall_score = avg_scores.mean()
-    logger.info(f"overall rag quality score: {overall_score:.2f}/1.00")
+    logger.info(f"Overall RAG quality score: {overall_score:.2f}/1.00")
     
     # save results summary
     summary = {

@@ -7,7 +7,6 @@ logger = logging.getLogger(__name__)
 class Retriever:
     def __init__(self, vector_store=None, persist_directory=None):
         """ Initialise the retriever with a vector store """
-
         if vector_store is None:
             self.vector_store = VectorStore(persist_directory)
         else:
@@ -31,29 +30,3 @@ class Retriever:
                 'relevance_score': score
             })
         return formatted_results
-
-# if __name__ == "__main__":
-
-#     try:
-#         from rag.retriever import Retriever
-#     except ImportError:
-#         from retriever import Retriever
-    
-#     # initialize retriever with existing vector store
-#     retriever = Retriever()
-    
-#     # test retrieval query
-#     query = "what kind of weight loss can I expect with GLP-1?"
-#     results = retriever.retrieve(query, k=3)
-    
-#     # Print the results
-#     logger.info(f"\nQuery: {query}")
-#     formatted_results = retriever.format_retrieved_documents(results)
-#     print("formatted_results")
-#     print(formatted_results)
-    
-#     for i, result in enumerate(formatted_results):
-#         logger.info(f"\nResult {i+1} (Score: {result['relevance_score']:.4f})")
-#         logger.info(f"Title: {result['metadata']['title']}")
-#         logger.info(f"Content: {result['content']}...")
-#         logger.info("-" * 80)
