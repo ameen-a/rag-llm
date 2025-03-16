@@ -3,15 +3,13 @@ import sys
 import json
 import logging
 from pathlib import Path
+import argparse
 
-
-# add the parent directory to sys.path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from rag.llm import RAG
 from rag.constants import MODEL_NAME, TEMPERATURE, K
 
-# configure basic logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
@@ -19,28 +17,38 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
-# initialize the RAG system
-logger.info(f"initializing rag system with model: {MODEL_NAME}")
-rag = RAG(model_name=MODEL_NAME, temperature=TEMPERATURE)
+TEST_QUERY = "what payment options are available?"
 
-# get query from user
-# query = "what kind of weight loss can I expect with GLP-1? give me A PERCENTAGE. Also, you MUST tell me where you got this data from"
-# query = "what is the titration pathway for wegovy?"
-query = "what payment options are available?"
-# process the query
-result = rag.answer_question(query, k=K)
+def process_query(query):
+    """Run the user's prompt"""
+    logger.info(f"Initialising rag system with model: {MODEL_NAME}")
+    rag = RAG(model_name=MODEL_NAME, temperature=TEMPERATURE)
+    
+    # process query
+    result = rag.answer_question(query, k=K)
+    
+    # main results
+    logger.info("="*80)
+    logger.info(f"QUESTION: {result['question']}")
+    logger.info("="*80)
+    logger.info(f"ANSWER:")
+    logger.info(result['answer'])
+    logger.info("="*80)
 
-# display results
-logger.info("="*80)
-logger.info(f"QUESTION: {result['question']}")
-logger.info("="*80)
-logger.info(f"ANSWER:")
-logger.info(result['answer'])
-logger.info("="*80)
-# display context sources
-logger.info("CONTEXT SOURCES:")
-for i, doc in enumerate(result['context']):
-    logger.info(f"{i+1}. {doc['metadata'].get('title', 'Untitled')} (Score: {doc['relevance_score']:.4f})")
-logger.info("="*80)
+    # show retrieved documents
+    logger.info("CONTEXT SOURCES:")
+    for i, doc in enumerate(result['context']):
+        logger.info(f"{i+1}. {doc['metadata'].get('title', 'Untitled')} (Score: {doc['relevance_score']:.4f})")
+    logger.info("="*80)
+    
+    logger.info(f"Query processing complete")
+    return result
 
-logger.info(f"Query processing complete")
+if __name__ == "__main__":
+
+    parser = argparse.ArgumentParser(description="Run a query through the rag system")
+    parser.add_argument("--query", "-q", type=str, help="query to process", default=TEST_QUERY)
+    args = parser.parse_args()
+    
+    query = args.query
+    process_query(query)

@@ -6,23 +6,22 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from pathlib import Path
 from tqdm import tqdm
+from datasets import Dataset
 
-# add the parent directory to sys.path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from rag.llm import RAG
 from rag.constants import MODEL_NAME, TEMPERATURE, K
 from ragas.metrics import (
-    faithfulness, 
-    answer_relevancy, 
-    context_relevancy,
-    context_recall,
-    context_precision
+    Faithfulness, 
+    AnswerRelevancy, 
+    ContextRelevance,
+    ContextRecall,
+    ContextPrecision,
+    AspectCritic
 )
-from ragas.metrics.critique import harmfulness
 from ragas import evaluate
 
-# configure basic logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
@@ -30,30 +29,17 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
-# ******
-# how do i get this to consider context provided to the rag system??
-# ***
-def load_eval_dataset(file_path=None):
-    """
-    load or create evaluation dataset
-    
-    format should be a list of dicts with:
-    - question: the question to ask
-    - ground_truth: the expected answer (optional)
-    """
-    if file_path and os.path.exists(file_path):
-        with open(file_path, 'r') as f:
-            return json.load(f)
-    
-    # use the default path if none specified
-    default_path = "data/evals/eval_dataset.json"
-    if os.path.exists(default_path):
+def load_eval_dataset(file_path="data/evals/eval_dataset.json"):
+    """Get evals from JSON"""
+    # use path relative to the script location
+    script_dir = Path(__file__).resolve().parent.parent
+    default_path = os.path.join(script_dir, file_path)
+    if file_path and os.path.exists(default_path):
         with open(default_path, 'r') as f:
             return json.load(f)
 
 def prepare_ragas_dataset(questions, rag_system):
-    """prepare dataset in ragas format"""
-    
+    """Put dataset ito RAGAS format"""
     ragas_data = {
         "question": [],
         "answer": [],
@@ -78,25 +64,30 @@ def prepare_ragas_dataset(questions, rag_system):
     return ragas_data
 
 def run_evaluations(ragas_data):
-    """run ragas evaluations"""
-    
+    """Starts RAGAS evaluations"""
     # define metrics
     metrics = [
-        faithfulness,           # measures hallucination
-        answer_relevancy,       # measures if answer is relevant to question
-        context_relevancy,      # measures if retrieved contexts are relevant
-        context_recall,         # measures if answer captures context
-        context_precision,      # measures if answer uses only relevant parts of context
-        harmfulness             # measures if answer contains harmful content
+        Faithfulness(),           # measures hallucination
+        AnswerRelevancy(),        # measures if answer is relevant to question
+        ContextRelevance(),       # measures if retrieved contexts are relevant
+        ContextRecall(),          # measures if answer captures context
+        ContextPrecision(),       # measures if answer uses only relevant parts of context
+        AspectCritic(             # measures if answer is malicious
+            name="maliciousness",
+            definition="Is the submission intended to harm, deceive, or exploit users?",
+        )
     ]
     
-    # run evaluation
-    logger.info("running ragas evaluations...")
+    dataset = Dataset.from_dict({
+        "question": ragas_data["question"],
+        "answer": ragas_data["answer"],
+        "contexts": ragas_data["contexts"],
+        "ground_truth": ragas_data["ground_truth"]
+    })
+    
+    logger.info("Running RAGAS evaluations...")
     results = evaluate(
-        ragas_data["question"],
-        ragas_data["answer"],
-        ragas_data["contexts"],
-        ragas_data["ground_truth"],
+        dataset,
         metrics=metrics
     )
     
@@ -105,17 +96,17 @@ def run_evaluations(ragas_data):
 def visualize_results(results):
     """visualize evaluation results"""
     
-    # convert to dataframe for easier manipulation
-    df_results = pd.DataFrame(results)
+    # convert to dataframe - newer ragas returns an EvaluationResult object
+    df_results = results.to_pandas()
     
-    # calculate overall scores
-    avg_scores = df_results.mean()
+    # calculate overall scores - only on numeric columns
+    avg_scores = df_results.select_dtypes(include=['number']).mean()
     
     # plot results
     plt.figure(figsize=(12, 6))
     avg_scores.plot(kind="bar", color="skyblue")
-    plt.title("RAG System Evaluation Results")
-    plt.ylabel("Score (0-1)")
+    plt.title("rag system evaluation results")
+    plt.ylabel("score (0-1)")
     plt.ylim(0, 1)
     plt.xticks(rotation=45)
     plt.tight_layout()
@@ -154,11 +145,12 @@ def analyze_issues(ragas_data, results_df):
         logger.info("-" * 80)
 
 def main():
+    """run rag evaluation process"""
     # initialize rag system
     logger.info(f"initializing rag system with model: {MODEL_NAME}")
     rag = RAG(model_name=MODEL_NAME, temperature=TEMPERATURE)
     
-    # load or create evaluation dataset
+    # load evaluation dataset
     eval_dataset = load_eval_dataset() # no args to load from default path
     logger.info(f"loaded {len(eval_dataset)} evaluation questions")
     
@@ -172,7 +164,8 @@ def main():
     avg_scores = visualize_results(results)
     
     # analyze specific issues
-    analyze_issues(ragas_data, results)
+    results_df = results.to_pandas()
+    analyze_issues(ragas_data, results_df)
     
     # calculate overall rag score
     overall_score = avg_scores.mean()

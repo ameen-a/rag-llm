@@ -44,26 +44,3 @@ class RAG:
             "answer": response.content,
             "context": context_docs
         }
-
-# if __name__ == "__main__":
-    # try:
-    #     from rag.retriever import Retriever
-    # except ImportError:
-    #     from retriever import Retriever
-    
-
-    # rag = RAG()
-    
-    # query = "using the documents provided, answer the following question: what kind of weight loss can I expect with GLP-1? give me A PERCENTAGE. Also tell me where you for this data from"
-    # result = rag.answer_question(query)
-    # # print(query)
-    # # print(result)
-    # # Print the result
-    # logger.info(f"Question: {result['question']}")
-    # logger.info(f"\nAnswer:")
-    # logger.info(result['answer'])
-    
-    # # # # Optionally, print the context sources
-    # # print("\nContext Sources:")
-    # # for i, doc in enumerate(result['context']):
-    # #     print(f"{i+1}. {doc['metadata']['title']} (Score: {doc['relevance_score']:.4f})")
