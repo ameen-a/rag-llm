@@ -108,9 +108,9 @@ def visualise_results(results):
     plt.tight_layout()
 
     # save figure and results
-    os.makedirs("data/evaluation", exist_ok=True)
-    plt.savefig("data/evaluation/rag_evaluation_results.png")
-    df_results.to_csv("data/evaluation/detailed_results.csv", index=False)
+    os.makedirs("data/eval_results", exist_ok=True)
+    plt.savefig("data/eval_results/rag_evaluation_results.png")
+    df_results.to_csv("data/eval_results/detailed_results.csv", index=False)
 
     logger.info(f"Overall average scores:\n{avg_scores}")
     return avg_scores
@@ -176,7 +176,7 @@ def main():
         "k_value": K,
     }
 
-    with open("data/evaluation/summary.json", "w") as f:
+    with open("data/eval_results/summary.json", "w") as f:
         json.dump(summary, f, indent=2)
 
     return summary

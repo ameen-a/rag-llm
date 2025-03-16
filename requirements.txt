@@ -1,5 +1,6 @@
 langchain
 langchain_openai
+langchain_community
 openai
 python-dotenv
 requests
@@ -7,3 +8,9 @@ uuid
 pathlib
 flask
 flask-cors
+bs4
+pandas
+matplotlib
+datasets
+tqdm
+ragas

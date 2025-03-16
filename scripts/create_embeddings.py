@@ -4,14 +4,12 @@ import json
 import logging
 from pathlib import Path
 
-# add the parent directory to sys.path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from database.embeddings import Embeddings
 from database.chunking import DocumentChunker
 from rag.vectorstore import VectorStore
 
-# configure basic logging
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
@@ -22,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 
 def create_embeddings():
-    """create chunks and embeddings from articles"""
+    """Create chunks and embeddings from articles"""
 
     # paths
     articles_file = os.path.join(
@@ -41,11 +39,11 @@ def create_embeddings():
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
 
     # step 1: create chunks from articles
-    logger.info(f"loading articles from {articles_file}")
+    logger.info(f"Loading articles from {articles_file}")
     try:
         with open(articles_file, "r") as f:
             documents = json.load(f)
-        logger.info(f"loaded {len(documents)} articles")
+        logger.info(f"Loaded {len(documents)} articles")
 
         # create chunks
         chunker = DocumentChunker()
@@ -60,10 +58,10 @@ def create_embeddings():
         sys.exit(1)
 
     # step 2: create embeddings for chunks
-    logger.info(f"loading chunks from {chunks_file}")
+    logger.info(f"Loading chunks from {chunks_file}")
     with open(chunks_file, "r") as f:
         chunks = json.load(f)
-    logger.info(f"loaded {len(chunks)} chunks")
+    logger.info(f"Loaded {len(chunks)} chunks")
 
     # initialise embeddings class and create embeddings
     embeddings = Embeddings()

@@ -4,4 +4,5 @@ data/embeddings/chroma_db/chroma.sqlite3
 *.bin
 .DS_Store
 *.csv
-*.png
+/venv
+*.pyc

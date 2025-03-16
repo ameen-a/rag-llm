@@ -129,7 +129,9 @@ class VoyZendeskAPI:
 
             # step 3: save and process article data
             if save_raw:
-                with open(f"{raw_dir}/article_{article_id}.json", "w") as f:
+                file_path = os.path.join(raw_dir, f"article_{article_id}.json")
+                logger.info(f"Saving raw article to {file_path}")
+                with open(file_path, "w") as f:
                     json.dump(article, f, indent=2)
 
             article_body = article.get("body", "")
