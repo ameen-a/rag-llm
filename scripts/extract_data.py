@@ -11,8 +11,7 @@ from api.get_data import VoyZendeskAPI
 logger = logging.getLogger(__name__)
 
 logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
 
 # make output directory
@@ -25,7 +24,7 @@ api = VoyZendeskAPI()
 articles = api.extract_all_articles(save_raw=True, raw_dir=raw_dir)
 
 # save articles
-with open(output_file, 'w') as f:
+with open(output_file, "w") as f:
     json.dump(articles, f, indent=2)
 
 logger.info(f"Extraction complete - {len(articles)} articles saved")

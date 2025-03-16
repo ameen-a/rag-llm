@@ -1,0 +1,14 @@
+[
+    {
+      "question": "What payment options are available",
+      "ground_truth": "Payment options include major debit, credit cards (including American Express), and PayPal (only available during checkout)"
+    },
+    {
+      "question": "What is the typical titration pathway for Wegovy?",
+      "ground_truth": "The typical titration pathway for Wegovy is: Start with 0.25mg (automatically titrated up after 28 days), then 0.5mg (automatically titrated up after 28 days), then 1mg (maintained at this dose unless patient requests to increase), followed by optional titration to 1.7mg, and finally optional titration to 2.4mg. Doses typically increase every 28 days with order renewal, but you can choose to remain on the same dose or reduce their dose throughout treatment if needed."
+    },
+    {
+      "question": "How much weight loss can I expect with GLP-1 medications?",
+      "ground_truth": "When GLP-1 medications are used alongside expert coaching, individuals can expect weight loss of up to 10% within the initial six months of treatments."
+    }
+]

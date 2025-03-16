@@ -26,12 +26,13 @@ context:
 If the context doesn't contain the information needed, acknowledge this clearly.
 """
 
+
 def format_context(context_docs):
     """Organise retrieved docs for prompt"""
     context_parts = []
     for i, doc in enumerate(context_docs):
-        title = doc['metadata'].get('title', 'untitled')
-        content = doc['content']
+        title = doc["metadata"].get("title", "untitled")
+        content = doc["content"]
         context_parts.append(f"source {i+1}: {title}\n{content}\n")
-    
+
     return "\n".join(context_parts)
