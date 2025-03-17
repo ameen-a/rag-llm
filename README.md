@@ -61,7 +61,7 @@ chmod +x scripts/setup.sh
 ./scripts/setup.sh
 ```
 
-Running the Application
+#### Running the Application
 
 The system can be used in two ways:
 
