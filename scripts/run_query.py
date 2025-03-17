@@ -16,7 +16,7 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
-TEST_QUERY = "what payment options are available?"
+TEST_QUERY = "What payment options are available?"
 
 
 def process_query(query):
@@ -51,7 +51,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="Run a query through the rag system")
     parser.add_argument(
-        "--query", "-q", type=str, help="query to process", default=TEST_QUERY
+        "--query", "-q", type=str, help="Query to process", default=TEST_QUERY
     )
     args = parser.parse_args()
 
