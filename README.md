@@ -53,7 +53,7 @@ An evaluation pipeline is **essential** to any LLM project, particularly if the 
 The `setup.sh` script will download the Voy Zendesk FAQ data, process it, and create the vector embeddings. It will also create a virtual environment and install the necessary libraries.
 
 ```bash
-# first, add your openai api key to the .env file
+# first, create an .env file in root with your OpenAI API key
 echo "OPENAI_API_KEY=your-api-key-here" > .env
 
 # then from root, run the setup script
