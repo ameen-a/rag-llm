@@ -22,14 +22,14 @@ The system contains a data pipeline that begins with **extraction**, which fetch
 5. **Evaluation**: The system evaluates answers for factual accuracy and hallucination potential using the RAGAS framework.
 
 ## Evaluation Strategy
-The system is evaluated using the RAGAS framework which captures the several important metrics, including _factuality_, _answer relevancy_, and _context precision_. The `run_evals.py` script runs the evals on test questions found in `data/evals/eval_dataset.json` and does a simple analysis [_see image below_].
+The system is evaluated using the RAGAS framework which captures the several important metrics, including _factuality_, _answer relevancy_, and _context precision_. The `run_evals.py` script runs the evals on three test questions (with ground truth answers) found in `data/evals/eval_dataset.json` and performs a simple analysis [_see image below_].
 
 ![image](data/eval_results/rag_evaluation_results.png)
 
  This dataset also contains the ground truth answers for each question, which are used to calculate certain RAGAS metrics like _faithfulness_ and _answer relevancy_. A particularly important metric is **_context precision_**. It measures the proportion of the retrieved context that is relevant to the question, and is a good measure of how much the retrieved context is actually useful for answering the question. A full list of metrics and their calculation methods are available in the [RAGAS documentation](https://docs.ragas.io/en/latest/references/metrics/). 
 
 
-An evaluation pipeline is essential to any LLM project, particularly if the LLM is user-facing. It requires some work to create ground truth answers, but the benefits are that any arbitrary model, prompt, RAG approach, or technique (like fine-tuning) can be systematically evaluated. It’s also essential to have tracing functionality: knowing how users interact with the LLM is necessary to meaningfully improve it over time and catch failure cases. An experiment tracking tool like [Weights & Biases](https://wandb.ai/site) provides all of these features, as well as other useful tools like unit testing outputs, model versioning, and hyperparameter tuning.
+An evaluation pipeline is essential to any LLM project, particularly if the LLM is user-facing. It requires some work to create ground truth answers, but the benefits are that any arbitrary model, prompt template, hyperparameter, RAG approach, or technique (like fine-tuning) can be systematically evaluated. It's also essential to have tracing functionality: knowing how users interact with the LLM is necessary to meaningfully improve it over time and catch failure cases. An experiment tracking tool like [Weights & Biases](https://wandb.ai/site) provides all of these features, as well as other useful tools like unit testing outputs, model versioning, and hyperparameter tuning.
 
 ## Future Improvements
 
@@ -53,12 +53,12 @@ An evaluation pipeline is essential to any LLM project, particularly if the LLM 
 The `setup.sh` script will download the Voy Zendesk FAQ data, process it, and create the vector embeddings. It will also create a virtual environment and install the necessary libraries.
 
 ```bash
-# from root, run the setup script
+# first, add your openai api key to the .env file
+echo "OPENAI_API_KEY=your-api-key-here" > .env
+
+# then from root, run the setup script
 chmod +x scripts/setup.sh
 ./scripts/setup.sh
-
-# add your openai api key to the .env file
-echo "OPENAI_API_KEY=your-api-key-here" > .env
 ```
 
 Running the Application
@@ -68,7 +68,7 @@ The system can be used in two ways:
 ```bash
 # start the web interface
 python scripts/run_app.py
-# then visit http://localhost:5000 in your browser
+# then visit http://127.0.0.1:5000 in your browser
 
 # or use the command line interface
 python scripts/run_query.py --query "your question here"

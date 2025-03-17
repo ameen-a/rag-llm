@@ -21,7 +21,6 @@ logger = logging.getLogger(__name__)
 
 def create_embeddings():
     """Create chunks and embeddings from articles"""
-
     # paths
     articles_file = os.path.join(
         Path(__file__).resolve().parent.parent, "data/processed/articles.json"

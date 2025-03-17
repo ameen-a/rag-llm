@@ -1,4 +1,3 @@
-import os
 from flask import (
     Flask,
     request,
@@ -8,7 +7,6 @@ from flask import (
     render_template,
 )
 from flask_cors import CORS
-import json
 import time
 import logging
 from rag.llm import RAG

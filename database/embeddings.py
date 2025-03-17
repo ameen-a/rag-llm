@@ -7,25 +7,22 @@ from dotenv import load_dotenv
 
 logger = logging.getLogger(__name__)
 
-# get API keys
 load_dotenv()
 
 
 class Embeddings:
     def __init__(self, model_name="text-embedding-3-small"):
-
+        """Initialise the embedding model"""
         self.embedding_model = OpenAIEmbeddings(model=model_name)
 
     def embed_text(self, text):
         """Embed a single text string"""
-
         return self.embedding_model.embed_query(text)
 
     def create_embeddings_for_chunks(
         self, chunks, output_path="../data/embeddings/chunks_with_embeddings.json"
     ):
         """Create and save embeddings for each chunk to JSON file"""
-
         logger.info(f"Creating embeddings for {len(chunks)} chunks")
 
         # create embedding column for each chunk

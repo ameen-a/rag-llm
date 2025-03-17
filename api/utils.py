@@ -6,8 +6,7 @@ logger = logging.getLogger(__name__)
 
 
 def clean_html(html_content: str) -> str:
-    """Clean HTML content by removing tags and normalizing whitespace"""
-
+    """Remove HTML tags and normalise whitespace"""
     if not html_content:
         return ""
 
@@ -24,7 +23,7 @@ def clean_html(html_content: str) -> str:
 
 
 def extract_article_body(html_content: str) -> str:
-    """Extract the article-body class content from HTML"""
+    """Extract article-body class content from HTML"""
     if not html_content:
         return ""
 
