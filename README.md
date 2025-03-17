@@ -12,7 +12,7 @@ This work extracts content from Voy's [Zendesk FAQ pages](https://joinvoy.zendes
 - **Storage**: Stores embeddings in a ChromaDB vector database for semantic similarity search. -->
 
 
-The system contains a data pipeline that begins with **extraction**, which fetches content from Voy's Zendesk knowledge base using their API, then continues with **processing** to clean the HTML, normalize text, and split the documents into chunks, followed by **embedding** that converts these text chunks into vector embeddings using OpenAI's `text-embedding-3-small`, and finally concludes with **storage**, where the embeddings are kept in a ChromaDB vector database for semantic similarity search.
+The system contains a data pipeline that begins with **extraction**, which fetches content from Voy's Zendesk knowledge base using their API, then continues with **processing** to clean the HTML, normalise text, and split the documents into chunks, followed by **embedding** that converts these text chunks into vector embeddings using OpenAI's `text-embedding-3-small`, and finally concludes with **storage**, where the embeddings are kept in a `chromadb` vector database for semantic similarity search.
 
 #### Question Answering Flow
 1. **Query Processing**: The user submits a question through web interface or CLI.
@@ -22,31 +22,31 @@ The system contains a data pipeline that begins with **extraction**, which fetch
 5. **Evaluation**: The system evaluates answers for factual accuracy and hallucination potential using the RAGAS framework.
 
 ## Evaluation Strategy
-The system is evaluated using the RAGAS framework which captures the several important metrics, including _factuality_, _answer relevancy_, and _context precision_. The `run_evals.py` script runs the evals on three test questions (with ground truth answers) found in `data/evals/eval_dataset.json` and performs a simple analysis [_see image below_].
+The system is evaluated using the RAGAS framework which captures the several important metrics, including _factuality_, _answer relevancy_, and _context precision_. The `run_evals.py` script runs the evals on three test questions found in `data/evals/eval_dataset.json`, and performs a simple analysis [_see image below_].
 
 ![image](data/eval_results/rag_evaluation_results.png)
 
- This dataset also contains the ground truth answers for each question, which are used to calculate certain RAGAS metrics like _faithfulness_ and _answer relevancy_. A particularly important metric is **_context precision_**. It measures the proportion of the retrieved context that is relevant to the question, and is a good measure of how much the retrieved context is actually useful for answering the question. A full list of metrics and their calculation methods are available in the [RAGAS documentation](https://docs.ragas.io/en/latest/references/metrics/). 
+ This dataset also contains the ground truth answers for each question. These are used to calculate certain RAGAS metrics like _faithfulness_ and _answer relevancy_. A particularly important metric is **_context precision_**. It measures the proportion of the retrieved context that is relevant to the question, and is a good measure of how much the retrieved context is truly useful for answering the question. A full list of metrics and their calculation methods are available in the [RAGAS documentation](https://docs.ragas.io/en/latest/references/metrics/). 
 
 
-An evaluation pipeline is essential to any LLM project, particularly if the LLM is user-facing. It requires some work to create ground truth answers, but the benefits are that any arbitrary model, prompt template, hyperparameter, RAG approach, or technique (like fine-tuning) can be systematically evaluated. It's also essential to have tracing functionality: knowing how users interact with the LLM is necessary to meaningfully improve it over time and catch failure cases. An experiment tracking tool like [Weights & Biases](https://wandb.ai/site) provides all of these features, as well as other useful tools like unit testing outputs, model versioning, and hyperparameter tuning.
+An evaluation pipeline is **essential** to any LLM project, particularly if the LLM is user-facing. It requires some work to create ground truth answers, but the benefits are that any arbitrary model, prompt template, hyperparameter, RAG approach, or technique (like fine-tuning) can be systematically evaluated. It's also essential to have tracing functionality: knowing how users interact with the LLM is necessary to meaningfully improve it over time and catch failure cases. An experiment tracking tool like [Weights & Biases](https://wandb.ai/site) provides all of these features, as well as other useful tools like unit testing outputs, model versioning, and hyperparameter tuning.
 
 ## Future Improvements
 
 - Given the time constaints, a trivial implementation of embedding and retrieval was used. I would revisit this and use a hybrid approach (keyword + semantic search), with an embedding model that is better suited to document-based Q&A. 
-- The current chunking strategy is also naive: it splits the documents arbitrarily into chunks of 1000 tokens (with some overlap). A better approach might be to split by article given they are relatively short. This would also clean up the output by avoiding overlapped sources. 
-- Add some agentic functionality: an evaluator LLM could be used a final check to flag any potential hallucinations and misrepresentations of the context, and a prompt formatting LLM could be used to format the user query in a way that is more likely to be helpful. If the corpus size is huge, one could split the documents into different vector databases and have an LLM route the query to the most relevant one.
+- The current chunking strategy is also naive: it splits the documents arbitrarily into chunks of 1000 tokens (with some overlap). A better approach might be to split by article, given they are relatively short. This would also clean up the output by avoiding overlapped sources. 
+- Add some agentic functionality: an evaluator LLM could be used a final check to flag any potential hallucinations and misrepresentations of the context, and a prompt formatting LLM could be used to format the user query in a way that is more likely to be helpful. If the corpus size is huge, one could split the documents into different vector databases and have a smaller LLM route the query to the most relevant one.
 - As mentioned, a proper **eval pipeline**.
 
 ### Libraries
 
-- **LangChain**: For RAG pipeline components, text splitting, and LLM integration
-- **OpenAI**: For vector embeddings model and LLM
-- **ChromaDB**: Vector database for storing and retrieving embeddings
-- **Flask**: Web server for the browser interface
-- **RAGAS**: Evaluation framework for measuring RAG system performance
-- **Pandas/Matplotlib**: For analysis of evaluation results
-- **BeautifulSoup**: For HTML parsing
+- **LangChain**: For RAG pipeline components, text splitting, and LLM integration.
+- **OpenAI**: For vector embeddings model and LLM.
+- **ChromaDB**: Vector database for storing and retrieving embeddings.
+- **Flask**: Web server for the browser interface.
+- **RAGAS**: Evaluation framework for measuring RAG system performance.
+- **Pandas/Matplotlib**: For analysis of evaluation results.
+- **BeautifulSoup**: For HTML parsing.
 
 ### Setup
 
